@@ -29,20 +29,40 @@ Claude Code saves every session locally — but finding a past conversation requ
 
 Sessions are stored as JSONL files in `~/.claude/projects/<project-slug>/<uuid>.jsonl`. `ccsm` walks that directory, parses the messages, and presents them as a searchable, summarizable list.
 
-```
-~/.claude/projects/
-  -home-user-Dev-myapp/
-    cc928331-e2fa-4542-992e-f1fded2deb08.jsonl   ← one file per session
-    2803b936-7cb5-499f-804a-3804351f4b94.jsonl
-```
-
 ```bash
 ccsm list
 
-# DATE        TIME   UUID                                  PROJECT       SUMMARY
-# 2026-06-14  09:23  2803b936-7cb5-499f-804a-3804351f4b94  ~/Dev/myapp   fix the auth bug in the login flow
-# 2026-06-13  14:51  cc928331-e2fa-4542-992e-f1fded2deb08  ~/Dev/myapp   refactor the payment service
+DATE        TIME   UUID                                  PROJECT              SUMMARY
+2026-06-15  10:12  2803b936-7cb5-499f-804a-3804351f4b94  ~/Dev/api-service    debug the query planner for slow migration
+2026-06-14  16:30  cc928331-e2fa-4542-992e-f1fded2deb08  ~/Dev/api-service    refactor the payment service auth flow
+2026-06-14  09:23  a1b2c3d4-0f8e-4a12-bb23-9c8d7e6f5a4b  ~/Dev/myapp          add rate limiting middleware
 ```
+
+---
+
+## 💡 Why It Matters
+
+| Feature | Benefit |
+|---------|---------|
+| SUMMARY column | cleaned first message with key file references — no raw UUIDs |
+| `--ai` flag | Claude-generated one-liner per session, cached in `~/.cache/ccsm/` |
+| Full-text search | finds sessions by content in any turn, not just the first message |
+| TURN + MATCH output | shows exactly where in the conversation a search term appeared |
+| UUID prefix matching | type 8 characters instead of 36, same as `git log` |
+| `ccsm summarize` | structured breakdown — what was worked on, key steps, outcome |
+
+---
+
+## 👥 Who Uses It
+
+| Audience | Use case |
+|----------|----------|
+| Individual developer | find any past session by keyword, date, or project — then resume it |
+| Team lead / manager | review what was worked on across projects without opening session files |
+| Skill author | inspect past sessions to understand how Claude responded to specific prompts |
+| Scripter / automator | pipe `--json` output into jq for custom reports and session dashboards |
+
+See [GUIDE.md](GUIDE.md) for full walkthroughs of all three scenarios.
 
 ---
 
@@ -56,6 +76,8 @@ ccsm list
 ---
 
 ## 📦 Installation
+
+> For a complete step-by-step guide including the fzf alias and `/sessions` skill see [INSTALL.md](INSTALL.md).
 
 **macOS / Linux:**
 
@@ -72,14 +94,7 @@ brew install nemethk/tap/ccsm
 **Go:**
 
 ```bash
-go install github.com/nemethk/claude-code-session-manager@latest
-```
-
-**From source:**
-
-```bash
-git clone https://github.com/nemethk/claude-code-session-manager
-cd claude-code-session-manager && make install
+GOBIN=/usr/local/bin go install github.com/nemethk/claude-code-session-manager@latest
 ```
 
 ---
@@ -95,67 +110,51 @@ ccsm list                          # all sessions
 ccsm list --project myapp          # filter by project path substring
 ccsm list --since 2026-06-01       # filter by date
 ccsm list --min-turns 2            # hide single-message sessions
+ccsm list --ai                     # generate AI summaries (cached for future runs)
 ccsm list --json                   # machine-readable JSON output
 ```
 
-The SUMMARY column shows a cleaned excerpt of the first user message with key file references. Use `--ai` to replace it with a Claude-generated one-liner (cached for future runs):
-
-```bash
-ccsm list --ai                     # generate AI summaries for uncached sessions
-```
-
-AI summaries are cached in `~/.cache/ccsm/` — subsequent `ccsm list` runs show them instantly at no cost.
-
----
-
-### `ccsm summarize <uuid>`
-
-Generate a detailed AI summary of a specific session: what was worked on, key steps, and outcome. Uses the `claude` CLI directly — requires Claude Code to be installed and authenticated.
-
-```bash
-ccsm summarize 2803b936
-
-# Session:  2803b936-7cb5-499f-804a-3804351f4b94
-# Project:  ~/Dev/myapp
-# Date:     2026-06-14 09:23
-# Turns:    43
-#
-# **What was worked on:** ...
-# **Key steps:**
-# - ...
-# **Outcome:** ...
-```
-
-UUID prefix is enough — same as `git log --abbrev-commit`.
-
----
-
 ### `ccsm search <term>`
 
-Filter sessions where the first message or project path contains the term.
+Search every user message across all turns in all sessions.
 
 ```bash
-ccsm search postgres
-ccsm search "auth bug"
-ccsm search kubernetes --json
-```
+ccsm search "query planner"
+ccsm search postgres --json
 
----
+DATE        TIME   UUID      PROJECT           TURN  MATCH
+2026-06-15  10:12  2803b936  ~/Dev/api-service  #3   ...the query planner is choosing a seq scan...
+```
 
 ### `ccsm show <uuid>`
 
-Print the first N raw user messages from a session — useful for previewing what was discussed before resuming.
+Print the first N raw user messages from a session — preview before resuming.
 
 ```bash
 ccsm show 2803b936                 # UUID prefix is enough
 ccsm show 2803b936 --turns 10      # show more turns (default: 5)
 ```
 
+### `ccsm summarize <uuid>`
+
+Generate a detailed AI summary: what was worked on, key steps, and outcome.
+
+```bash
+ccsm summarize 2803b936
+
+Session:  2803b936-7cb5-499f-804a-3804351f4b94
+Project:  ~/Dev/api-service
+Date:     2026-06-15 10:12
+Turns:    31
+
+**What was worked on:** ...
+**Key steps:** ...
+**Outcome:** ...
+```
+
 ---
 
 ## ▶️ Resume a Session
-
-`ccsm` outputs the UUID you need — pass it to `claude --resume`:
 
 ```bash
 claude --resume 2803b936-7cb5-499f-804a-3804351f4b94
@@ -179,36 +178,24 @@ alias cr='ccsm list | fzf | awk '"'"'{print $3}'"'"' | xargs claude --resume'
 
 `ccsm` ships with a `/sessions` skill that adds natural language search on top of the binary.
 
-**Install:**
-
 ```bash
+# install
 cp skill/sessions.md ~/.claude/skills/sessions.md
 ```
 
-Or download directly:
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/nemethk/claude-code-session-manager/main/skill/sessions.md \
-  -o ~/.claude/skills/sessions.md
-```
-
-**Usage inside any Claude Code session:**
-
 ```
 /sessions                              → numbered list of all sessions
-/sessions find postgres                → Claude filters by relevance
-/sessions show 2803b936               → inspect turns before resuming
-/sessions resume 2803b936             → prints the claude --resume command
+/sessions find postgres migration      → Claude filters by relevance
+/sessions show 2803b936                → inspect turns before resuming
+/sessions resume 2803b936              → prints the claude --resume command
 ```
-
-The skill calls `ccsm list --json` via the Bash tool and uses Claude to reason over the structured output — semantic search without indexing.
 
 ---
 
 ## ⚡ Configuration
 
 | Variable | Default | Purpose |
-|---|---|---|
+|----------|---------|---------|
 | `CCSM_SESSIONS_DIR` | `~/.claude/projects` | Override the sessions directory |
 
 ---
@@ -223,6 +210,12 @@ Tests are split into two packages:
 
 - `internal/session` — unit tests for JSONL parsing, path extraction, text matching
 - `tests/` — end-to-end tests that build the binary and run it against fixture sessions
+
+---
+
+## 🤝 Contributing
+
+Bug fixes, new features, and documentation improvements are welcome — see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ---
 
