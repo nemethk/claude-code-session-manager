@@ -1,0 +1,57 @@
+# Build artifacts
+dist/
+ccsm
+*.o
+*.a
+*.so
+*.dylib
+
+# Test artifacts
+*.test
+*.out
+*.cover
+coverage.html
+coverage.txt
+
+# Profiling
+*.prof
+*.pprof
+
+# Logs
+*.log
+logs/
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+.AppleDouble
+.LSOverride
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+
+# Environment
+.env
+.env.local
+
+# Go
+go.work
+vendor/
+
+# AI assistant configs
+CLAUDE.md
+GEMINI.md
+CODEX.md
+AGENTS.md
+.cursorrules
+.clinerules
+.windsurfrules
