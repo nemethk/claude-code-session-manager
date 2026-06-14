@@ -2,9 +2,13 @@ Manage Claude Code sessions using the `ccsm` CLI.
 
 ## Setup check
 
-If `ccsm` is not installed, tell the user to run:
+If `ccsm` is not installed, tell the user to install it:
 ```
-cd ~/DevOps/Git/claude-code-config/_dev/ccsm && make install
+brew install nemethk/tap/ccsm
+```
+Or via curl:
+```
+curl -fsSL https://raw.githubusercontent.com/nemethk/claude-code-session-manager/main/scripts/install.sh | bash
 ```
 
 ## Commands available
@@ -24,13 +28,12 @@ Run `ccsm list --json`. Display a numbered table:
 Include the UUID after the row (e.g., `UUID: 2803b936-...`) so the user can copy it.
 
 **Search / find query** (e.g., `/sessions find postgres` or `/sessions kubernetes`)
-Run `ccsm list --json`. Scan all sessions, filter and rank by relevance to the query
-(match against `first_msg` and `project_path`). Show the top matches with a one-line
-explanation of why each is relevant.
+Run `ccsm search <term> --json`. Show the top matches with a one-line explanation of
+why each is relevant.
 For deeper inspection of a candidate, run `ccsm show <uuid>` and summarize the turns.
 
 **`show <uuid-or-number>`**
-If a number from a previous list, resolve it to the UUID. Run `ccsm show <uuid>`.
+If a number is given, re-run `ccsm list --json` to resolve it to the UUID. Run `ccsm show <uuid>`.
 Display the turns so the user can decide whether to resume.
 
 **`resume <uuid-or-number>`**
