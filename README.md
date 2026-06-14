@@ -17,7 +17,7 @@
 
 ---
 
-## ❓ The Problem
+## ❓ The Challenge
 
 Claude Code saves every session locally — but finding a past conversation requires guessing a UUID or scrolling through `~/.claude/projects/`. There is no built-in way to search or list what you've worked on.
 
