@@ -6,9 +6,9 @@
   <p>List, search, and summarize your saved Claude Code sessions from the terminal.</p>
 
   <p>
-    <a href="https://github.com/nemethk/ccsm/releases"><img src="https://img.shields.io/github/v/release/nemethk/ccsm" alt="Latest Release" /></a>
-    <a href="https://github.com/nemethk/ccsm/actions/workflows/ci.yaml"><img src="https://img.shields.io/github/actions/workflow/status/nemethk/ccsm/ci.yaml?label=ci" alt="CI" /></a>
-    <a href="LICENSE"><img src="https://img.shields.io/github/license/nemethk/ccsm" alt="License" /></a>
+    <a href="https://github.com/nemethk/claude-code-session-manager/releases"><img src="https://img.shields.io/github/v/release/nemethk/claude-code-session-manager" alt="Latest Release" /></a>
+    <a href="https://github.com/nemethk/claude-code-session-manager/actions/workflows/ci.yaml"><img src="https://img.shields.io/github/actions/workflow/status/nemethk/claude-code-session-manager/ci.yaml?label=ci" alt="CI" /></a>
+    <a href="LICENSE"><img src="https://img.shields.io/github/license/nemethk/claude-code-session-manager" alt="License" /></a>
     <img src="https://img.shields.io/badge/go-1.26-00ADD8?logo=go" alt="Go 1.26" />
     <img src="https://img.shields.io/badge/platform-linux%20%7C%20macOS-blue" alt="Platform" />
     <a href="https://claude.ai/claude-code"><img src="https://img.shields.io/badge/Claude%20Code-enabled-8A2BE2?logo=anthropic" alt="Claude Code" /></a>
@@ -60,7 +60,7 @@ ccsm list
 **macOS / Linux:**
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/nemethk/ccsm/main/scripts/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/nemethk/claude-code-session-manager/main/scripts/install.sh | bash
 ```
 
 **Homebrew:**
@@ -72,14 +72,14 @@ brew install nemethk/tap/ccsm
 **Go:**
 
 ```bash
-go install github.com/nemethk/ccsm@latest
+go install github.com/nemethk/claude-code-session-manager@latest
 ```
 
 **From source:**
 
 ```bash
-git clone https://github.com/nemethk/ccsm
-cd ccsm && make install
+git clone https://github.com/nemethk/claude-code-session-manager
+cd claude-code-session-manager && make install
 ```
 
 ---
@@ -188,7 +188,7 @@ cp skill/sessions.md ~/.claude/skills/sessions.md
 Or download directly:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/nemethk/ccsm/main/skill/sessions.md \
+curl -fsSL https://raw.githubusercontent.com/nemethk/claude-code-session-manager/main/skill/sessions.md \
   -o ~/.claude/skills/sessions.md
 ```
 
