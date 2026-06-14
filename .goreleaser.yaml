@@ -30,10 +30,10 @@ brews:
       owner: nemethk
       name: homebrew-tap
       token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
-    homepage: https://github.com/nemethk/ccsm
+    homepage: https://github.com/nemethk/claude-code-session-manager
     description: Claude Code Session Manager — list, search, and browse saved Claude Code sessions
 
 release:
   github:
     owner: nemethk
-    name: ccsm
+    name: claude-code-session-manager

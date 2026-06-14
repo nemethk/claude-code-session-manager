@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/nemethk/ccsm/internal/ai"
-	"github.com/nemethk/ccsm/internal/session"
+	"github.com/nemethk/claude-code-session-manager/internal/ai"
+	"github.com/nemethk/claude-code-session-manager/internal/session"
 	"github.com/spf13/cobra"
 )
 

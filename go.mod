@@ -1,4 +1,4 @@
-module github.com/nemethk/ccsm
+module github.com/nemethk/claude-code-session-manager
 
 go 1.26
 

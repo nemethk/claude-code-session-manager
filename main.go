@@ -1,6 +1,6 @@
 package main
 
-import "github.com/nemethk/ccsm/cmd"
+import "github.com/nemethk/claude-code-session-manager/cmd"
 
 var version = "dev"
 

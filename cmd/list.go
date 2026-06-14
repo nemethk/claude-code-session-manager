@@ -9,8 +9,8 @@ import (
 	"text/tabwriter"
 	"time"
 
-	"github.com/nemethk/ccsm/internal/cache"
-	"github.com/nemethk/ccsm/internal/session"
+	"github.com/nemethk/claude-code-session-manager/internal/cache"
+	"github.com/nemethk/claude-code-session-manager/internal/session"
 	"github.com/spf13/cobra"
 )
 

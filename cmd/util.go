@@ -6,9 +6,9 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/nemethk/ccsm/internal/ai"
-	"github.com/nemethk/ccsm/internal/cache"
-	"github.com/nemethk/ccsm/internal/session"
+	"github.com/nemethk/claude-code-session-manager/internal/ai"
+	"github.com/nemethk/claude-code-session-manager/internal/cache"
+	"github.com/nemethk/claude-code-session-manager/internal/session"
 )
 
 func shortenPath(p string) string {
