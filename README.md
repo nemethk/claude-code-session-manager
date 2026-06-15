@@ -152,6 +152,16 @@ Turns:    31
 **Outcome:** ...
 ```
 
+### `ccsm upgrade`
+
+Download and install the latest release from GitHub.
+
+```bash
+sudo ccsm upgrade
+```
+
+Skips the download if already on the latest version.
+
 ---
 
 ## ▶️ Resume a Session
@@ -206,9 +216,10 @@ cp skill/sessions.md ~/.claude/skills/sessions.md
 go test ./...
 ```
 
-Tests are split into two packages:
+Tests are split into three packages:
 
 - `internal/session` — unit tests for JSONL parsing, path extraction, text matching
+- `internal/upgrade` — unit tests for GitHub API fetch, archive extraction, root check
 - `tests/` — end-to-end tests that build the binary and run it against fixture sessions
 
 ---

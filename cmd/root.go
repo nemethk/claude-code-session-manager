@@ -25,4 +25,5 @@ func init() {
 	rootCmd.AddCommand(searchCmd)
 	rootCmd.AddCommand(showCmd)
 	rootCmd.AddCommand(summarizeCmd)
+	rootCmd.AddCommand(upgradeCmd)
 }
