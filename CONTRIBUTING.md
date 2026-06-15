@@ -13,8 +13,8 @@ Contributions are welcome — bug fixes, new features, documentation improvement
 **Clone and build:**
 
 ```bash
-git clone git@github.com:nemethk/ccsm.git
-cd ccsm
+git clone git@github.com:nemethk/claude-code-session-manager.git
+cd claude-code-session-manager
 go mod download
 make build
 ```

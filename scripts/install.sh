@@ -42,7 +42,7 @@ echo
 
 # Get latest release tag
 echo "Fetching latest release..."
-LATEST_TAG=$(curl -s https://api.github.com/repos/nemethk/ccsm/releases/latest | grep -o '"tag_name": "[^"]*' | cut -d'"' -f4)
+LATEST_TAG=$(curl -s https://api.github.com/repos/nemethk/claude-code-session-manager/releases/latest | grep -o '"tag_name": "[^"]*' | cut -d'"' -f4)
 
 if [ -z "$LATEST_TAG" ]; then
     echo "Error: Could not determine latest release tag"
@@ -54,7 +54,7 @@ echo
 
 # Download archive
 ARCHIVE_NAME="ccsm_${OS_LOWER}_${ARCH_LOWER}.tar.gz"
-DOWNLOAD_URL="https://github.com/nemethk/ccsm/releases/download/${LATEST_TAG}/${ARCHIVE_NAME}"
+DOWNLOAD_URL="https://github.com/nemethk/claude-code-session-manager/releases/download/${LATEST_TAG}/${ARCHIVE_NAME}"
 TEMP_DIR=$(mktemp -d)
 TEMP_ARCHIVE="$TEMP_DIR/$ARCHIVE_NAME"
 
@@ -108,4 +108,4 @@ echo
 echo "  3. Fuzzy-pick and resume in one command (requires fzf):"
 echo "     ccsm list | fzf | awk '{print \$2}' | xargs claude --resume"
 echo
-echo "For more info, see: https://github.com/nemethk/ccsm"
+echo "For more info, see: https://github.com/nemethk/claude-code-session-manager"

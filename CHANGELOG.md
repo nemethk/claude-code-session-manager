@@ -29,4 +29,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-For development history, see [git log](https://github.com/nemethk/ccsm/commits/main).
+For development history, see [git log](https://github.com/nemethk/claude-code-session-manager/commits/main).

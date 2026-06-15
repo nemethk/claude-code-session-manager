@@ -56,13 +56,13 @@ goreleaser automatically:
 
 Monitor the release at:
 ```
-https://github.com/nemethk/ccsm/actions
+https://github.com/nemethk/claude-code-session-manager/actions
 ```
 
 **4. Verify the release**
 
 ```
-https://github.com/nemethk/ccsm/releases
+https://github.com/nemethk/claude-code-session-manager/releases
 ```
 
 Check that binaries are attached and release notes look correct.
