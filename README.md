@@ -202,6 +202,22 @@ cp skill/sessions.md ~/.claude/skills/sessions.md
 
 ---
 
+## 🔤 Shell Completion
+
+`ccsm` supports tab completion for all commands and flags.
+
+```bash
+# bash — add to ~/.bashrc
+source <(ccsm completion bash)
+
+# zsh — add to ~/.zshrc
+source <(ccsm completion zsh)
+```
+
+After reloading your shell, `ccsm <Tab>` will suggest commands and flags.
+
+---
+
 ## ⚡ Configuration
 
 | Variable | Default | Purpose |
