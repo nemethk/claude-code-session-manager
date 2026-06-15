@@ -12,6 +12,7 @@
     <img src="https://img.shields.io/badge/go-1.26-00ADD8?logo=go" alt="Go 1.26" />
     <img src="https://img.shields.io/badge/platform-linux%20%7C%20macOS-blue" alt="Platform" />
     <a href="https://claude.ai/claude-code"><img src="https://img.shields.io/badge/Claude%20Code-enabled-8A2BE2?logo=anthropic" alt="Claude Code" /></a>
+    <img src="https://img.shields.io/badge/Claude-Skill-orange?logo=anthropic" alt="Claude Skill" />
   </p>
 </div>
 
